@@ -27,13 +27,13 @@ The steps to use the library in your own projects are shown below -
         GIT_REPOSITORY
             https://github.com/Aditya-A-garwal/mbed-HCSR04.git
         GIT_TAG
-            f1a2b38b77a6a5d44ead8b2b1f3a84a2d625f2ca
+            latest
     )
 
     FetchContent_MakeAvailable(mbed-HCSR04)
     ```
 
-    Replace the hash given after the ```GIT_TAG``` parameter with the hash of the commit compatible with your project. To use a specific release, replace the hash with the tag of the release.
+    ```latest``` after ```GIT_TAG``` uses the latest commit to the main branch of this repository. Replace it with the hash of the commit or the tag of the release that needs to be used in your project.
 
     More information about the FetchContent set of commands can be found [in the official CMake Docs](https://cmake.org/cmake/help/latest/module/FetchContent.html).
 
