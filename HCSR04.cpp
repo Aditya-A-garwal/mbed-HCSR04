@@ -12,7 +12,6 @@ HCSR04::HCSR04(PinName trig, PinName echo)
         , echoPin(echo)
         , pulseBusyLock(0, 1)
         , shouldTerminate(1, 1)
-        , threadRunLock(0, 1)
 {
 
     echoPin.rise(callback(this, &HCSR04::pulse_start_handler));
@@ -64,12 +63,12 @@ HCSR04::finalize() {
 
     shouldTerminate.acquire();
     queue.break_dispatch();
-    threadRunLock.acquire();
 
-    auto status = threadHandle->terminate();
-    if (status != osOK) {
-        return false;
-    }
+    threadHandle->join();
+    // auto status = threadHandle->terminate();
+    // if (status != osOK) {
+    //     return false;
+    // }
     shouldTerminate.release();
 
     delete threadHandle;
@@ -262,6 +261,4 @@ HCSR04::dispatch_events() {
         }
         shouldTerminate.release();
     }
-
-    threadRunLock.release();
 }

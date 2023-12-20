@@ -46,8 +46,6 @@ class HCSR04 {
     /** Semaphore to block the queue dispatch thread and for graceful termination */
     Semaphore       shouldTerminate;
 
-    Semaphore       threadRunLock;
-
 public:
 
     HCSR04() = delete;
