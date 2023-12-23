@@ -62,7 +62,7 @@ public:
      * @brief               Initializes the object by allocating and starting a thread to dispatch callbacks on
      *
      * @remark              If the thread was already initialized, then the HCSR04::finalize() method must be called
-     *                      before trying to initialize it again
+     *                      before trying to re-initialize it
      *
      * @attention           Can not call this method from ISR context
      * @attention           It is unsafe to call this method from multiple threads concurrently
@@ -75,7 +75,7 @@ public:
      * @brief               Finalizes the object by stopping and freeing the thread on which callbacks are dispatched
      *
      * @remark              If the thread was not initialized or finalized before, then the HCSR04::initialize() method must be called
-     *                      before trying to finalize it again
+     *                      before trying to re-finalize
      * @remark              The object can not be finalized as long as there are pending non-periodic measurements
      * @remark              The object can not be finalized as long as there is a registered non-periodic measurement
      *
@@ -112,13 +112,18 @@ public:
     bool        do_measurement(const Callback<void(bool, float)> &cb);
 
     /**
+     * @brief               Get the number of pending non-periodic measurements
      *
-     * @return
+     * @remarks             The object can not be finalized as long as there are pending non-periodic measurements remaining
+     *
+     * @attention           This function can be called from ISR context
+     *
+     * @return              Number of pending non-periodic measurements
      */
     uint32_t    get_pending_measurement_count() const;
 
     /**
-     * @brief               Begins asynchronously, periodically measuring the distance forever
+     * @brief               Starts periodically measuring the distance asynchronously and returns immediately
      *
      * @remarks             To stop periodic measurement, see the HCSR04::stop_measurement_periodic() function
      *
