@@ -20,3 +20,8 @@ target_sources(mbed-HCSR04
         HCSR04.cpp
         HCSR04Blocking.cpp
 )
+
+target_link_libraries(mbed-HCSR04
+    INTERFACE
+        mbed-events
+)
