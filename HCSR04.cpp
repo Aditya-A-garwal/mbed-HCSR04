@@ -1,9 +1,9 @@
 #include "HCSR04.h"
 
 /** Maximum Distance the sensor should be able to measure before readings are considered invalid/too far awat */
-constexpr auto MAX_DISTANCE = 300;
+constexpr auto      MAX_DISTANCE    = 300;
 /** Timeout of the sensor based on the maximum distance it can measure */
-constexpr auto SENSOR_TIMEOUT = MAX_DISTANCE * 20'000ms / 343;
+constexpr auto      SENSOR_TIMEOUT  = MAX_DISTANCE * 20'000ms / 343;
 
 // Constructors
 
@@ -63,12 +63,7 @@ HCSR04::finalize() {
 
     shouldTerminate.acquire();
     queue.break_dispatch();
-
     threadHandle->join();
-    // auto status = threadHandle->terminate();
-    // if (status != osOK) {
-    //     return false;
-    // }
     shouldTerminate.release();
 
     delete threadHandle;
